@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-buttons>
+      <ion-title *ngIf="activeUser.email" class="ion-text-center">Welcome, {{ activeUser.email }}</ion-title>
+    </ion-buttons>
+    <ion-buttons style="justify-content: center;" justify-content-center>
+      <ion-button fill="solid" (click)="ToAddProduct()" color="primary">
+        <ion-icon name="add"></ion-icon>
+        Add Product
+      </ion-button>
+      <ion-button fill="solid" (click)="logout()" color="danger">
+        <ion-icon name="log-out"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Refresh button to reload the products -->
+  <ion-button class="ion-margin-bottom" (click)="loadProducts()" expand="full">Refresh</ion-button>
+
+  <!-- Dropdown for choosing categories -->
+  <ion-item>
+    <ion-label>Choose Category</ion-label>
+    <ion-select placeholder="Select Category" [(ngModel)]="selectedCategory" (ionChange)="filterProducts()">
+      <ion-select-option value="all">All</ion-select-option>
+      <ion-select-option value="user">Your Products</ion-select-option>
+      <ion-select-option value="other">Other Users' Products</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Display products based on the selected category -->
+  <ion-list *ngIf="selectedProducts.length > 0">
+    <ion-item *ngFor="let product of selectedProducts">
+      <ion-label>
+        <h2>{{ product.title }}</h2>
+        <p>Price: {{ product.price }}</p>
+        <p *ngIf="selectedCategory === 'user' && product.owner === activeUser.uid">Your Product</p>
+        <p *ngIf="selectedCategory === 'other' && product.owner !== activeUser.uid">Other User's Product</p>
+      </ion-label>
+      <ion-thumbnail slot="start">
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image">
+      </ion-thumbnail>
+    </ion-item>
+  </ion-list>
+
+  <!-- Display a message if no products are available -->
+  <div class="message" *ngIf="selectedProducts.length === 0">
+    No products available.
+  </div>
+</ion-content>

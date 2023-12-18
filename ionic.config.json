@@ -1,0 +1,7 @@
+{
+  "name": "Annonces",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

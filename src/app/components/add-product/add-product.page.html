@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <ion-label>Title</ion-label>
+      <ion-input [(ngModel)]="product.title" name="title" placeholder="Enter product title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-input [(ngModel)]="product.category" name="category" placeholder="Select category" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Price</ion-label>
+      <ion-input [(ngModel)]="product.price" name="price" type="number" placeholder="Enter product price" required></ion-input>
+    </ion-item>
+
+    <!-- You can add more fields as needed -->
+
+    <ion-button type="submit" expand="full" color="primary">Add Product</ion-button>
+  </form>
+</ion-content>
